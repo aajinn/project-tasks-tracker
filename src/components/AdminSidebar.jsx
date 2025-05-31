@@ -6,7 +6,7 @@ const AdminSidebar = () => {
 
   return (
     <div className="sidebar">
-      <div className="sidebar-header">ADMIN PANEL</div>
+      <div className="sidebar-header">Admin Panel</div>
       <nav className="sidebar-nav">
         <Link to="/" className={location.pathname === '/' ? 'active' : ''}>
           Dashboard

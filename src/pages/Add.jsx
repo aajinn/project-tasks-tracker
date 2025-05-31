@@ -49,7 +49,7 @@ const Add = () => {
         <button 
           className="button"
           onClick={() => navigate('/projects')}
-          style={{ marginLeft: '1rem' }}
+          style={{ marginleft: '1rem' }}
         >
           Back to Projects
         </button>
