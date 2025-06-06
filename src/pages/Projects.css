@@ -1,0 +1,296 @@
+.projects-page {
+  padding: 2rem;
+}
+
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.projects-header h1 {
+  color: #1e293b;
+  font-size: 1.875rem;
+  margin: 0;
+}
+
+.add-project-btn {
+  padding: 0.5rem 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  width: auto;
+  min-width: 120px;
+}
+
+.add-project-btn:hover {
+  background-color: #2563eb;
+}
+
+/* Filter Bar */
+.filter-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filter-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: white;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.filter-button:hover {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.filter-button.active {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+/* Projects Grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.project-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.project-header h3 {
+  color: #1e293b;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-badge.pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.in-progress {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.status-badge.completed {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.project-description {
+  color: #64748b;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.project-dates {
+  margin-bottom: 1.5rem;
+}
+
+.date-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.date-label {
+  color: #64748b;
+}
+
+.date-value {
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.project-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Buttons */
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button-primary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.button-primary:hover {
+  background-color: #2563eb;
+}
+
+.button-edit {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+.button-edit:hover {
+  background-color: #cbd5e1;
+}
+
+.button-delete {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.button-delete:hover {
+  background-color: #fecaca;
+}
+
+/* Modals */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+}
+
+.modal-content h3 {
+  color: #1e293b;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #475569;
+  font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Loading and Error States */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #64748b;
+}
+
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  color: #dc2626;
+  background-color: #fee2e2;
+  border-radius: 8px;
+}
+
+.no-projects {
+  text-align: center;
+  padding: 3rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  color: #64748b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .projects-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .filter-bar {
+    flex-wrap: wrap;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+} 

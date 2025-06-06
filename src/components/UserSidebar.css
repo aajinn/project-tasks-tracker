@@ -1,4 +1,4 @@
-.admin-sidebar {
+.user-sidebar {
   width: 240px;
   height: 100vh;
   background-color: #1e293b;
@@ -64,4 +64,4 @@
 
 .logout-button:hover {
   background-color: #dc2626;
-}
+} 

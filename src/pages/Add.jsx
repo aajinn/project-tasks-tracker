@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../api/config';
+import './Add.css';
 
 const Add = () => {
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
-  const [newProject, setNewProject] = useState({
-    name: '',
+  const [formData, setFormData] = useState({
+    title: '',
     description: '',
     startDate: '',
     endDate: '',
     status: 'pending'
   });
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  const handleInputChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewProject(prev => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value
     }));
@@ -23,186 +24,127 @@ const Add = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setSuccess('');
+
     try {
-      console.log('Submitting project data:', newProject);
-      const response = await api.post('/projects', newProject);
-      console.log('API Response:', response.data);
-      navigate('/projects');
+      const response = await fetch('http://localhost:5000/api/projects', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create project');
+      }
+
+      setSuccess('Project created successfully!');
+      setFormData({
+        title: '',
+        description: '',
+        startDate: '',
+        endDate: '',
+        status: 'pending'
+      });
+
+      // Redirect to projects page after 2 seconds
+      setTimeout(() => {
+        navigate('/projects');
+      }, 2000);
     } catch (err) {
-      console.error('Full error object:', err);
-      console.error('Error response:', err.response?.data);
-      setError(err.response?.data?.message || 'Failed to create project. Please try again later.');
+      setError(err.message);
     }
   };
 
   return (
-    <div style={{ maxWidth: '600px', margin: '2rem auto', padding: '0 1rem' }}>
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        marginBottom: '2rem' 
-      }}>
+    <div className="add-page">
+      <div className="add-header">
         <h1>Add New Project</h1>
-        <button 
-          className="button"
-          onClick={() => navigate('/projects')}
-          style={{ marginleft: '1rem' }}
-        >
-          Back to Projects
-        </button>
       </div>
 
-      {error && <div className="error-message" style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
+      <form className="add-form" onSubmit={handleSubmit}>
+        {error && <div className="error-message">{error}</div>}
+        {success && <div className="success-message">{success}</div>}
 
-      <div style={{
-        backgroundColor: 'white',
-        padding: '2rem',
-        borderRadius: '8px',
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-      }}>
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ 
-              display: 'block', 
-              marginBottom: '0.5rem',
-              fontWeight: '500'
-            }}>
-              Project Name *
-            </label>
+        <div className="form-content">
+          <div className="form-group">
+            <label htmlFor="title">Project Title</label>
             <input
               type="text"
-              name="name"
-              value={newProject.name}
-              onChange={handleInputChange}
+              id="title"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
               required
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                borderRadius: '4px',
-                border: '1px solid #ddd',
-                fontSize: '1rem'
-              }}
-              placeholder="Enter project name"
+              placeholder="Enter project title"
             />
           </div>
 
-          <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ 
-              display: 'block', 
-              marginBottom: '0.5rem',
-              fontWeight: '500'
-            }}>
-              Description
-            </label>
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
             <textarea
+              id="description"
               name="description"
-              value={newProject.description}
-              onChange={handleInputChange}
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                borderRadius: '4px',
-                border: '1px solid #ddd',
-                fontSize: '1rem',
-                minHeight: '100px'
-              }}
+              value={formData.description}
+              onChange={handleChange}
+              required
               placeholder="Enter project description"
             />
           </div>
 
-          <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ 
-              display: 'block', 
-              marginBottom: '0.5rem',
-              fontWeight: '500'
-            }}>
-              Status
-            </label>
+          <div className="date-inputs">
+            <div className="form-group">
+              <label htmlFor="startDate">Start Date</label>
+              <input
+                type="date"
+                id="startDate"
+                name="startDate"
+                value={formData.startDate}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="endDate">End Date</label>
+              <input
+                type="date"
+                id="endDate"
+                name="endDate"
+                value={formData.endDate}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="status">Status</label>
             <select
+              id="status"
               name="status"
-              value={newProject.status}
-              onChange={handleInputChange}
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                borderRadius: '4px',
-                border: '1px solid #ddd',
-                fontSize: '1rem'
-              }}
+              value={formData.status}
+              onChange={handleChange}
+              required
             >
               <option value="pending">Pending</option>
               <option value="in-progress">In Progress</option>
               <option value="completed">Completed</option>
             </select>
           </div>
+        </div>
 
-          <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ 
-              display: 'block', 
-              marginBottom: '0.5rem',
-              fontWeight: '500'
-            }}>
-              Start Date *
-            </label>
-            <input
-              type="date"
-              name="startDate"
-              value={newProject.startDate}
-              onChange={handleInputChange}
-              required
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                borderRadius: '4px',
-                border: '1px solid #ddd',
-                fontSize: '1rem'
-              }}
-            />
-          </div>
-
-          <div style={{ marginBottom: '2rem' }}>
-            <label style={{ 
-              display: 'block', 
-              marginBottom: '0.5rem',
-              fontWeight: '500'
-            }}>
-              End Date
-            </label>
-            <input
-              type="date"
-              name="endDate"
-              value={newProject.endDate}
-              onChange={handleInputChange}
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                borderRadius: '4px',
-                border: '1px solid #ddd',
-                fontSize: '1rem'
-              }}
-            />
-          </div>
-
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <button 
-              type="submit"
-              className="button button-primary"
-              style={{ flex: 1 }}
-            >
-              Add Project
-            </button>
-            <button 
-              type="button"
-              className="button"
-              onClick={() => navigate('/projects')}
-              style={{ flex: 1 }}
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
+        <div className="form-actions">
+          <button type="button" className="button button-secondary" onClick={() => navigate('/projects')}>
+            Cancel
+          </button>
+          <button type="submit" className="button button-primary">
+            Create Project
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import React from 'react';
-import './AdminSidebar.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import './UserSidebar.css';
 
-const AdminSidebar = () => {
+const UserSidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -22,35 +22,23 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div className="admin-sidebar">
+    <div className="user-sidebar">
       <div className="sidebar-header">
-        <h2>Admin Panel</h2>
+        <h2>Task Tracker</h2>
       </div>
       
       <nav className="sidebar-nav">
         <Link 
-          to="/" 
-          className={`nav-item ${isActive('/') ? 'active' : ''}`}
+          to="/user/dashboard" 
+          className={`nav-item ${isActive('/user/dashboard') ? 'active' : ''}`}
         >
-          Dashboard
+          My Projects
         </Link>
         <Link 
-          to="/projects" 
-          className={`nav-item ${isActive('/projects') ? 'active' : ''}`}
+          to="/user/profile" 
+          className={`nav-item ${isActive('/user/profile') ? 'active' : ''}`}
         >
-          Projects
-        </Link>
-        <Link 
-          to="/tasks" 
-          className={`nav-item ${isActive('/tasks') ? 'active' : ''}`}
-        >
-          Tasks
-        </Link>
-        <Link 
-          to="/team" 
-          className={`nav-item ${isActive('/team') ? 'active' : ''}`}
-        >
-          Team
+          Profile
         </Link>
       </nav>
 
@@ -66,4 +54,4 @@ const AdminSidebar = () => {
   );
 };
 
-export default AdminSidebar;
+export default UserSidebar; 
